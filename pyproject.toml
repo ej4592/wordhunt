@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "wordhunt"
+version = "0.1.0"
+description = ""
+authors = ["Eric Ji <ezj4@cornell.edu>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pylint = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[tool.poetry.scripts]
+solve = "wordhunt.cli:top_20_words"
+init_dict = "wordhunt.dictionarytrie:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
