@@ -26,28 +26,28 @@ class Trie:
 
 
 def init_dictionary():
-    dictionary = open("words", "r")
+    dictionary = open("wordhunt/dictionary.txt", "r")
     root = Trie("")
     counter = 0
     for word in dictionary:
         word = word.strip()
         counter += 1
-        if word.islower():
-            print(word)
-            curr_node = root
-            for letter in word:
-                # print(letter)
-                if curr_node.has_child(letter):
-                    # print(curr_node.valid)
-                    curr_node = curr_node.get_child(letter)
-                else:
-                    new_node = Trie(letter)
-                    curr_node.add_child(new_node)
-                    curr_node = new_node
-            curr_node.valid = True
-            # print(curr_node.letter)
+        print(word)
+        word = word.lower()
+        curr_node = root
+        for letter in word:
+            # print(letter)
+            if curr_node.has_child(letter):
+                # print(curr_node.valid)
+                curr_node = curr_node.get_child(letter)
+            else:
+                new_node = Trie(letter)
+                curr_node.add_child(new_node)
+                curr_node = new_node
+        curr_node.valid = True
+        # print(curr_node.letter)
 
-            # print(curr_node.valid)
+        # print(curr_node.valid)
 
     return root
 

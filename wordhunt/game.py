@@ -6,7 +6,7 @@ import string
 class WordHunt:
     """assert letter list is 25 later"""
 
-    def __init__(self, letterlist, size = 4):
+    def __init__(self, letterlist, size=4):
         self.board = WordHunt.setup_board(letterlist, size)
         self.size = size
 
@@ -20,7 +20,7 @@ class WordHunt:
         return cls(args.letters)
 
     @staticmethod
-    def setup_board(letterlist, size = 4):
+    def setup_board(letterlist, size=4):
         board = []
         row = []
         counter = 0
@@ -54,60 +54,73 @@ class WordHunt:
 
     def solve(self):
         new_root = pickle.load(open("trie", "rb"))  # trie structure
+        # next = new_root.get_child("b")
+        # next = next.get_child("o")
+        # next = next.get_child("o")
+        # next = next.get_child("m")
+        # next = next.get_child("i")
+        # next = next.get_child("e")
+        # next = next.get_child("s")
+        # next = next.get_child("t")
+        # print(next.valid
 
+        final_valid_list = []
 
-        valid_words = []
-        counter = 0
+        def possible_valid_words(x, y):
+            valid_words = []
+            potential_wordlist = []
+            curr_node = new_root.get_child(self.board[x][y])
+            # print(counter)
+            seen = []
+            seen.append((x, y))
+            potential_wordlist.append((curr_node, (x, y), seen))
+
+            # print(valid_words)
+            # DFS here
+            while len(potential_wordlist) != 0:
+                pot_word, (x, y), seen = potential_wordlist.pop(0)
+                if pot_word.valid:
+                    word = ""
+                    word = pot_word.letter + word
+                    curr_node = pot_word
+                    # print(counter)
+                    while curr_node.parent != None:
+                        curr_node = curr_node.parent
+                        word = curr_node.letter + word
+
+                    # print(word)
+
+                    if len(word) > 2:
+                        # print(word)
+                        valid_words.append(word)
+
+                for i in self.valid_surrounding_tiles((x, y)):
+                    x2, y2 = i
+                    if seen.count((x2, y2)) == 0:
+                        # print((x2,y2))
+                        new_letter = self.board[x2][y2]
+                        if pot_word.has_child(new_letter):
+                            child_node = pot_word.get_child(new_letter)
+                            seen2 = seen.copy()
+                            seen2.append((x2, y2))
+                            potential_wordlist.append((child_node, (x2, y2), seen2))
+
+            valid_words = WordHunt.unique(valid_words)
+            valid_words.sort(key=len)
+            valid_words.reverse()
+            return valid_words
 
         for x in range(self.size):
             for y in range(self.size):
-                curr_node = new_root.get_child(self.board[x][y])
-                counter += 1
-                # print(counter)
-                potential_wordlist = []
-                seen = []
-                seen.append((x,y))
-                potential_wordlist.append((curr_node, (x, y), seen))
+                final_valid_list.extend(possible_valid_words(x, y))
 
-                # print(valid_words)
-                #DFS here
-                while len(potential_wordlist) != 0:
-                    pot_word, (x, y), seen = potential_wordlist.pop(0)
-                    if pot_word.valid:
-                        word = ""
-                        word = pot_word.letter + word
-                        curr_node = pot_word
-                        # print(counter)
-                        while curr_node.parent != None:
-                            curr_node = curr_node.parent
-                            word = curr_node.letter + word
-
-                        # print(word)
-
-                        if len(word) > 2:
-                            # print(word)
-                            valid_words.append(word)
-
-
-                    for i in self.valid_surrounding_tiles((x, y)):
-                        x2, y2 = i
-                        if seen.count((x2, y2)) == 0:
-                            print((x2,y2))
-                            new_letter = self.board[x2][y2]
-                            if pot_word.has_child(new_letter):
-                                child_node = pot_word.get_child(new_letter)
-                                seen2 = seen.copy()
-                                seen2.append((x2, y2))
-                                potential_wordlist.append(
-                                    (child_node, (x2, y2), seen2)
-                                )
-
-        valid_words = WordHunt.unique(valid_words)
-        valid_words.sort(key=len)
-        valid_words.reverse()
-        return valid_words
+        final_valid_list = WordHunt.unique(final_valid_list)
+        final_valid_list.sort(key=len)
+        final_valid_list.reverse()
+        return final_valid_list
 
         # bfs
+
     @staticmethod
     def exists(word):
         curr = pickle.load(open("trie", "rb"))  # trie structure
@@ -117,6 +130,7 @@ class WordHunt:
             else:
                 return False
         return curr.valid
+
     @staticmethod
     def unique(list1):
 
