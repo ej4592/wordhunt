@@ -12,7 +12,9 @@ class WordHunt:
 
     def add_to_parser(parser: argparse.ArgumentParser()):
         parser.add_argument(
-            "--letters", nargs="+", help="letters read like a book",
+            "--letters",
+            nargs="+",
+            help="letters read like a book",
         )
 
     @classmethod
@@ -24,12 +26,13 @@ class WordHunt:
         board = []
         row = []
         counter = 0
-        for i in letterlist:
+        for i in letterlist[0]:
             counter += 1
             row.append(i)
             if counter % size == 0:
                 board.append(row)
                 row = []
+
         return board
 
     def valid_surrounding_tiles(self, tile_position):
@@ -54,15 +57,6 @@ class WordHunt:
 
     def solve(self):
         new_root = pickle.load(open("trie", "rb"))  # trie structure
-        # next = new_root.get_child("b")
-        # next = next.get_child("o")
-        # next = next.get_child("o")
-        # next = next.get_child("m")
-        # next = next.get_child("i")
-        # next = next.get_child("e")
-        # next = next.get_child("s")
-        # next = next.get_child("t")
-        # print(next.valid
 
         final_valid_list = []
 
@@ -70,12 +64,11 @@ class WordHunt:
             valid_words = []
             potential_wordlist = []
             curr_node = new_root.get_child(self.board[x][y])
-            # print(counter)
+
             seen = []
             seen.append((x, y))
             potential_wordlist.append((curr_node, (x, y), seen))
 
-            # print(valid_words)
             # DFS here
             while len(potential_wordlist) != 0:
                 pot_word, (x, y), seen = potential_wordlist.pop(0)
@@ -88,16 +81,12 @@ class WordHunt:
                         curr_node = curr_node.parent
                         word = curr_node.letter + word
 
-                    # print(word)
-
                     if len(word) > 2:
-                        # print(word)
                         valid_words.append(word)
 
                 for i in self.valid_surrounding_tiles((x, y)):
                     x2, y2 = i
                     if seen.count((x2, y2)) == 0:
-                        # print((x2,y2))
                         new_letter = self.board[x2][y2]
                         if pot_word.has_child(new_letter):
                             child_node = pot_word.get_child(new_letter)
@@ -133,7 +122,6 @@ class WordHunt:
 
     @staticmethod
     def unique(list1):
-
         # initialize a null list
         unique_list = []
 
@@ -143,30 +131,3 @@ class WordHunt:
             if x not in unique_list:
                 unique_list.append(x)
         return unique_list
-
-
-def main():
-    print("hello")
-    # letterlist = [
-    #     "e",
-    #     "a",
-    #     "t",
-    #     "a",
-    #     "t",
-    #     "r",
-    #     "r",
-    #     "a",
-    #     "c",
-    #     "m",
-    #     "e",
-    #     "s",
-    #     "e",
-    #     "i",
-    #     "i",
-    #     "s",
-    # ]
-    # # print(len(letterlist))
-    # wh = WordHunt(letterlist)
-    # # print(wh.board)
-    # grid = wh.solve()
-    # print(grid[0:10])

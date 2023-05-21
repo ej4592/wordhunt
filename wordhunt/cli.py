@@ -8,7 +8,6 @@ def top_20_words():
     WordHunt.add_to_parser(parser)
 
     args = parser.parse_args()
-    print(args.letters)
     wordhunt = WordHunt.create_from_args(args)
     grid = wordhunt.solve()
     print(grid)
