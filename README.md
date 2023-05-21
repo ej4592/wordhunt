@@ -11,15 +11,15 @@ Wordhunt is a tool for solving word puzzles. It allows you to initialize a dicti
    ```shell
    poetry run init_dict
 
-2.**Solve WordHunt"
+2. **Solve WordHunt"
 
   Run the following command to solve wordhunt:
   Note this the string at end must be 16 characters and will
-  be interpreted as. 
-[aaaa]
-[bbbb]
-[cccc]
-[dddd]
+  be interpreted as.  <br>
+[aaaa] <br>
+[bbbb] <br>
+[cccc] <br>
+[dddd] <br>
 
   
   
