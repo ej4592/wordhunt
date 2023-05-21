@@ -1,12 +1,28 @@
-# wordhunt
+# Wordhunt
 
-1. Initialize dictionary
-poetry run init_dict
-2. Solve wordhunt. The longest words will be printed. 
-poetry run solve --letters "aaaabbbbccccdddd"
+Wordhunt is a tool for solving word puzzles. It allows you to initialize a dictionary and find the longest words that can be formed from a given set of letters.
 
-"aaaabbbbccccdddd" must be 16 characters and is interpreted as a board of shape
-[aaaa]
-[bbbb]
-[cccc]
-[dddd]
+## Usage
+
+1. **Initialize the dictionary**
+
+   Run the following command to initialize the dictionary:
+
+   ```shell
+   poetry run init_dict
+
+2.**Solve WordHunt"
+
+  Run the following command to solve wordhunt:
+  Note this the string at end must be 16 characters and will
+  be interpreted as. 
+  [aaaa]. 
+  [bbbb]. 
+  [cccc]. 
+  [dddd]. 
+  
+  
+  ```shell
+  poetry run solve --letters "aaaabbbbccccdddd"
+  
+  
