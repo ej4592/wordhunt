@@ -16,10 +16,11 @@ Wordhunt is a tool for solving word puzzles. It allows you to initialize a dicti
   Run the following command to solve wordhunt:
   Note this the string at end must be 16 characters and will
   be interpreted as. 
-  [aaaa]. 
-  [bbbb]. 
-  [cccc]. 
-  [dddd]. 
+[aaaa]
+[bbbb]
+[cccc]
+[dddd]
+
   
   
   ```shell
